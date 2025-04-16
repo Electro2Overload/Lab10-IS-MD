@@ -96,7 +96,7 @@ def assignmentGraph(assignments, submissions):
     plt.ylabel("Number of Students")
 
     plt.xlim(45, 100)
-    plt.ylim(0, 8)
+    plt.ylim(0, 12)
 
     plt.grid(axis='y', linestyle='--', alpha=0.7)
 
@@ -111,7 +111,7 @@ def main():
     print("1. Student grade")
     print("2. Assignment statistics")
     print("3. Assignment graph")
-    choice = input("Enter your selection ").strip()
+    choice = input("Enter your selection: ").strip()
 
     if choice == "1":
         studentGrade(students, assignments, submissions)
