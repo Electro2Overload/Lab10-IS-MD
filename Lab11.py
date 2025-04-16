@@ -23,8 +23,8 @@ def loadStudents(fileName):
     if not os.path.exists(fileName):
         print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
         return students
-    with open(fileName, "r") as f:
-        for line in f:
+    with open(fileName, "r") as file:
+        for line in file:
             line = line.strip()
             student_id = line[:3]
             name = line[3:]
