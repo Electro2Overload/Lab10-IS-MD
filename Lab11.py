@@ -2,9 +2,9 @@ import os
 import matplotlib.pyplot as plt
 
 
-def check_file_exists(filename):
-    if not os.path.exists(filename):
-        print(f"Error: {filename} not found. Make sure the file is uploaded and in the correct directory.")
+def check_file_exists(fileName):
+    if not os.path.exists(fileName):
+        print(f"Error: {fileName} not found. Make sure the file is uploaded and in the correct directory.")
         return False
     return True
 
@@ -20,10 +20,10 @@ def main():
 
 def loadStudents(fileName):
     students = {}
-    if not os.path.exists(filename):
-        print(f"Error: '{filename}' not found. Make sure the file is in the correct folder.")
+    if not os.path.exists(fileName):
+        print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
         return students
-    with open(filename, "r") as f:
+    with open(fileName, "r") as f:
         for line in f:
             line = line.strip()
             student_id = line[:3]
