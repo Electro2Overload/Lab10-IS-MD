@@ -9,7 +9,7 @@ def check_file_exists(fileName):
     return True
 
 
-    
+
 
 def loadStudents(fileName):
     students = {}
@@ -116,7 +116,7 @@ def assignmentGraph(assignments, submissions):
 
 
 def main():
-    
+
     if not (check_file_exists("students.txt") and
             check_file_exists("assignments.txt") and
             check_file_exists("submissions.txt")):
