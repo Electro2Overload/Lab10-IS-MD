@@ -34,7 +34,7 @@ def loadStudents(fileName):
 
 def loadAssignments(fileName):
     assignments = {}
-    with open(fileName, "r") as f:
+    with open(fileName, "r") as file:
         lines = [line.strip() for line in f if line.strip()]
         for i in range(0, len(lines), 3):
             name = lines[i]
