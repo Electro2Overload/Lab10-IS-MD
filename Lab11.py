@@ -2,6 +2,22 @@ import os
 import matplotlib.pyplot as plt
 
 
+def check_file_exists(filename):
+    if not os.path.exists(filename):
+        print(f"Error: {filename} not found. Make sure the file is uploaded and in the correct directory.")
+        return False
+    return True
+
+def main():
+    if not (check_file_exists("students.txt") and 
+            check_file_exists("assignments.txt") and 
+            check_file_exists("submissions.txt")):
+        return  # Exit if files are missing
+
+    students = load_students("students.txt")
+    assignments = load_assignments("assignments.txt")
+    submissions = load_submissions("submissions.txt")
+
 def loadStudents(fileName):
     students = {}
     if not os.path.exists(fileName):
