@@ -1,14 +1,18 @@
+import os
 import matplotlib.pyplot as plt
 
 
 def loadStudents(fileName):
     students = {}
+    if not os.path.exists(fileName):
+        print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
+        return students
     with open(fileName, "r") as f:
         for line in f:
             line = line.strip()
-            studentID = line[:3]
+            student_id = line[:3]
             name = line[3:]
-            students[name] = studentID
+            students[name] = student_id
     return students
 
 
