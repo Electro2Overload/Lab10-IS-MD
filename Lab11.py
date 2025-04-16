@@ -14,9 +14,9 @@ def main():
             check_file_exists("submissions.txt")):
         return  # Exit if files are missing
 
-    students = load_students("students.txt")
-    assignments = load_assignments("assignments.txt")
-    submissions = load_submissions("submissions.txt")
+    students = loadStudents("students.txt")
+    assignments = loadAssignments("assignments.txt")
+    submissions = loadSubmissions("submissions.txt")
 
 def loadStudents(fileName):
     students = {}
@@ -35,7 +35,7 @@ def loadStudents(fileName):
 def loadAssignments(fileName):
     assignments = {}
     with open(fileName, "r") as file:
-        lines = [line.strip() for line in f if line.strip()]
+        lines = [line.strip() for line in file if line.strip()]
         for i in range(0, len(lines), 3):
             name = lines[i]
             assignmentID = lines[i + 1]
