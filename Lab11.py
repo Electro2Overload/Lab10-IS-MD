@@ -20,22 +20,21 @@ def main():
 
 def loadStudents(fileName):
     students = {}
-    if not os.path.exists(fileName):
-        print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
+    if not os.path.exists(filename):
+        print(f"Error: '{filename}' not found. Make sure the file is in the correct folder.")
         return students
-    with open(fileName, "r") as file:
-        for line in file:
+    with open(filename, "r") as f:
+        for line in f:
             line = line.strip()
             student_id = line[:3]
             name = line[3:]
             students[name] = student_id
     return students
 
-
 def loadAssignments(fileName):
     assignments = {}
-    with open(fileName, "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
+    with open(fileName, "r") as f:
+        lines = [line.strip() for line in f if line.strip()]
         for i in range(0, len(lines), 3):
             name = lines[i]
             assignmentID = lines[i + 1]
