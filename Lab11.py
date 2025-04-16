@@ -8,15 +8,8 @@ def check_file_exists(fileName):
         return False
     return True
 
-def main():
-    if not (check_file_exists("students.txt") and 
-            check_file_exists("assignments.txt") and 
-            check_file_exists("submissions.txt")):
-        return  # Exit if files are missing
 
-    students = loadStudents("students.txt")
-    assignments = loadAssignments("assignments.txt")
-    submissions = loadSubmissions("submissions.txt")
+    
 
 def loadStudents(fileName):
     students = {}
@@ -123,9 +116,16 @@ def assignmentGraph(assignments, submissions):
 
 
 def main():
+    
+    if not (check_file_exists("students.txt") and
+            check_file_exists("assignments.txt") and
+            check_file_exists("submissions.txt")):
+        return  # Exit if files are missing
+
     students = loadStudents("students.txt")
     assignments = loadAssignments("assignments.txt")
     submissions = loadSubmissions("submissions.txt")
+
 
     print("1. Student grade")
     print("2. Assignment statistics")
@@ -142,5 +142,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
