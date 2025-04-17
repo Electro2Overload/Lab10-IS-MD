@@ -1,14 +1,26 @@
 import os
 import matplotlib.pyplot as plt
 
+# Get the absolute path to the directory containing this script
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def get_full_path(file_name):
+    return os.path.join(SCRIPT_DIR, file_name)
+
+def check_file_exists(fileName):
+    file_path = get_full_path(fileName)
+    if not os.path.exists(file_path):
+        print(f"Error: {fileName} not found. Make sure the file is uploaded and in the correct directory.")
+        return False
+    return True
 
 def loadStudents(fileName):
     students = {}
-    if not os.path.exists(fileName):
+    file_path = get_full_path(fileName)
+    if not os.path.exists(file_path):
         print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
         return students
-    with open(fileName, "r") as f:
+    with open(file_path, "r") as f:
         for line in f:
             line = line.strip()
             student_id = line[:3]
@@ -18,7 +30,8 @@ def loadStudents(fileName):
 
 def loadAssignments(fileName):
     assignments = {}
-    with open(fileName, "r") as f:
+    file_path = get_full_path(fileName)
+    with open(file_path, "r") as f:
         lines = [line.strip() for line in f if line.strip()]
         for i in range(0, len(lines), 3):
             name = lines[i]
@@ -27,15 +40,14 @@ def loadAssignments(fileName):
             assignments[name] = {"ID": assignmentID, "points": pointValue}
     return assignments
 
-
 def loadSubmissions(fileName):
     submissions = []
-    with open(fileName, "r") as file:
+    file_path = get_full_path(fileName)
+    with open(file_path, "r") as file:
         for line in file:
             studentID, assignmentID, grade = line.strip().split('|')
             submissions.append((int(studentID), int(assignmentID), int(grade)))
     return submissions
-
 
 def studentGrade(students, assignments, submissions):
     studentName = input("What is the student's name: ")
@@ -55,7 +67,6 @@ def studentGrade(students, assignments, submissions):
     maxTotal = sum(assign["points"] for assign in assignments.values())
     finalPercent = round((totalEarned / maxTotal) * 100)
     print(f"{finalPercent}%")
-
 
 def assignmentStatistics(assignments, submissions):
     assignmentSName = input("What is the assignment name: ").strip()
@@ -77,7 +88,6 @@ def assignmentStatistics(assignments, submissions):
     print(f"Min: {minScore}%")
     print(f"Avg: {avgScore}%")
     print(f"Max: {maxScore}%")
-
 
 def assignmentGraph(assignments, submissions):
     assignmentGName = input("What is the assignment name: ").strip()
@@ -103,16 +113,17 @@ def assignmentGraph(assignments, submissions):
     plt.ylim(0, 12)
 
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-
     plt.show()
 
-
 def main():
+    if not (check_file_exists("students.txt") and
+            check_file_exists("assignments.txt") and
+            check_file_exists("submissions.txt")):
+        return
 
     students = loadStudents("students.txt")
     assignments = loadAssignments("assignments.txt")
     submissions = loadSubmissions("submissions.txt")
-
 
     print("1. Student grade")
     print("2. Assignment statistics")
@@ -125,7 +136,6 @@ def main():
         assignmentStatistics(assignments, submissions)
     elif choice == "3":
         assignmentGraph(assignments, submissions)
-
 
 if __name__ == "__main__":
     main()
