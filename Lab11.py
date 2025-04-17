@@ -50,7 +50,7 @@ def loadSubmissions(filePath):
 
 
 def studentGrade(students, assignments, submissions):
-    studentName = input("What is the student's name: ")
+    studentName = input("What is the student's name: ").strip().title()
     if studentName not in students:
         print("Student not found")
         return
