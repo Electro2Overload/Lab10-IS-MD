@@ -123,14 +123,12 @@ def main():
     assignmentsPath = get_assignments_path()
     submissionsPath = get_submissions_path()
     
-    if not (check_file_exists("studentsPath") and 
-            check_file_exists("assignmentsPath") and
-            check_file_exists("submissionsPath")):
+    if not (check_file_exists(studentsPath) and check_file_exists(assignmentsPath) and check_file_exists(submissionsPath)):
         return
     
-    students = loadStudents("studentsPath")
-    assignments = loadAssignments("assignmentsPath")
-    submissions = loadSubmissions("submissionsPath")
+    students = loadStudents(studentsPath)
+    assignments = loadAssignments(assignmentsPath)
+    submissions = loadSubmissions(submissionsPath)
 
     print("1. Student grade")
     print("2. Assignment statistics")
