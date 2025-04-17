@@ -2,34 +2,47 @@ import os
 import matplotlib.pyplot as plt
 
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+def check_file_exists(fileName):
+    if not os.path.exists(fileName):
+        print(f"Error: {fileName} not found. Make sure the file is uploaded and in the correct directory.")
+        return False
+    return True
+
+
+
 
 def loadStudents(fileName):
-    file_path = os.path.join(SCRIPT_DIR, fileName)
-    with open(file_path, "r") as f:
-        students = {}
-        for line in f:
-            sid, name = line.strip().split(",", 1)
-            students[sid] = name
+    students = {}
+    if not os.path.exists(fileName):
+        print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
         return students
+    with open(fileName, "r") as f:
+        for line in f:
+            line = line.strip()
+            student_id = line[:3]
+            name = line[3:]
+            students[name] = student_id
+    return students
 
 def loadAssignments(fileName):
-    file_path = os.path.join(SCRIPT_DIR, fileName)
-    with open(file_path, "r") as f:
-        assignments = {}
-        for line in f:
-            aid, name, points = line.strip().split(",", 2)
-            assignments[aid] = (name, float(points))
-        return assignments
+    assignments = {}
+    with open(fileName, "r") as f:
+        lines = [line.strip() for line in f if line.strip()]
+        for i in range(0, len(lines), 3):
+            name = lines[i]
+            assignmentID = lines[i + 1]
+            pointValue = int(lines[i + 2])
+            assignments[name] = {"ID": assignmentID, "points": pointValue}
+    return assignments
+
 
 def loadSubmissions(fileName):
-    file_path = os.path.join(SCRIPT_DIR, fileName)
-    with open(file_path, "r") as f:
-        submissions = []
-        for line in f:
-            sid, aid, grade = line.strip().split(",")
-            submissions.append((sid, aid, float(grade)))
-        return submissions
+    submissions = []
+    with open(fileName, "r") as file:
+        for line in file:
+            studentID, assignmentID, grade = line.strip().split('|')
+            submissions.append((int(studentID), int(assignmentID), int(grade)))
+    return submissions
 
 
 def studentGrade(students, assignments, submissions):
@@ -104,6 +117,11 @@ def assignmentGraph(assignments, submissions):
 
 def main():
 
+    if not (check_file_exists("students.txt") and
+            check_file_exists("assignments.txt") and
+            check_file_exists("submissions.txt")):
+        return  # Exit if files are missing
+
     students = loadStudents("students.txt")
     assignments = loadAssignments("assignments.txt")
     submissions = loadSubmissions("submissions.txt")
@@ -124,5 +142,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-    
