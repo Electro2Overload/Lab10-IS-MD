@@ -1,21 +1,10 @@
-import os
+
 import matplotlib.pyplot as plt
-
-
-def check_file_exists(fileName):
-    if not os.path.exists(fileName):
-        print(f"Error: {fileName} not found. Make sure the file is uploaded and in the correct directory.")
-        return False
-    return True
-
 
 
 
 def loadStudents(fileName):
     students = {}
-    if not os.path.exists(fileName):
-        print(f"Error: '{fileName}' not found. Make sure the file is in the correct folder.")
-        return students
     with open(fileName, "r") as f:
         for line in f:
             line = line.strip()
@@ -116,11 +105,6 @@ def assignmentGraph(assignments, submissions):
 
 
 def main():
-
-    if not (check_file_exists("students.txt") and
-            check_file_exists("assignments.txt") and
-            check_file_exists("submissions.txt")):
-        return  # Exit if files are missing
 
     students = loadStudents("students.txt")
     assignments = loadAssignments("assignments.txt")
