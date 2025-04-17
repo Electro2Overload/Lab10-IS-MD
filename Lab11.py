@@ -3,10 +3,6 @@ import matplotlib.pyplot as plt
 
 
 
-
-
-
-
 def loadStudents(fileName):
     students = {}
     if not os.path.exists(fileName):
@@ -112,11 +108,6 @@ def assignmentGraph(assignments, submissions):
 
 
 def main():
-
-    if not (check_file_exists("students.txt") and
-            check_file_exists("assignments.txt") and
-            check_file_exists("submissions.txt")):
-        return  # Exit if files are missing
 
     students = loadStudents("students.txt")
     assignments = loadAssignments("assignments.txt")
