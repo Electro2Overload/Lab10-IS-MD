@@ -20,7 +20,7 @@ def check_file_exists(filePath):
 
 def loadStudents(filePath):
     students = {}
-    with open(fileName, "r") as f:
+    with open(filePath, "r") as f:
         for line in f:
             line = line.strip()
             studentID = line[:3]
@@ -120,16 +120,16 @@ def assignmentGraph(assignments, submissions):
 
 def main():
     studentsPath = get_students_path()
-    assignmentPath = get_assignments_path()
+    assignmentsPath = get_assignments_path()
     submissionsPath = get_submissions_path()
     
     if not (check_file_exists("studentsPath") and 
-            check_file_exists("assignmentPath") and
+            check_file_exists("assignmentsPath") and
             check_file_exists("submissionsPath")):
         return
     
     students = loadStudents("studentsPath")
-    assignments = loadAssignments("assignmentPath")
+    assignments = loadAssignments("assignmentsPath")
     submissions = loadSubmissions("submissionsPath")
 
     print("1. Student grade")
