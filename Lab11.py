@@ -2,11 +2,7 @@ import os
 import matplotlib.pyplot as plt
 
 
-def check_file_exists(fileName):
-    if not os.path.exists(fileName):
-        print(f"Error: {fileName} not found. Make sure the file is uploaded and in the correct directory.")
-        return False
-    return True
+
 
 
 
