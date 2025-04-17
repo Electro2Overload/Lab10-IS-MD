@@ -2,13 +2,17 @@ import os
 import matplotlib.pyplot as plt
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(SCRIPT_DIR, "data")
 
-def get_full_path(fileName):
-    return os.path.join(DATA_DIR, fileName)
+def get_students_path():
+    return os.path.join(SCRIPT_DIR, 'data', 'student.txt')
+
+def get_assignments_path():
+    return os.path.join(SCRIPT_DIR, 'data', 'assignments.txt')
+
+def get_submissions_path():
+    return os.path.join(SCRIPT_DIR, 'data', 'submissions', 'submissions.txt') 
 
 def check_file_exists(fileName):
-    filePath = get_full_path(fileName)
     if not os.path.exists(filePath):
         print(f"Error: {fileName} not found in /data. Make sure the file is uploaded there.")
         return False
@@ -16,10 +20,6 @@ def check_file_exists(fileName):
 
 def loadStudents(fileName):
     students = {}
-    filePath = get_full_path(fileName)
-    if not os.path.exists(filePath):
-        print(f"Error: '{fileName}' not found in /data folder.")
-        return students
     with open(fileName, "r") as f:
         for line in f:
             line = line.strip()
@@ -30,7 +30,6 @@ def loadStudents(fileName):
 
 def loadAssignments(fileName):
     assignments = {}
-    filePath = get_full_path(fileName)
     with open(fileName, "r") as f:
         lines = [line.strip() for line in f if line.strip()]
         for i in range(0, len(lines), 3):
@@ -43,7 +42,6 @@ def loadAssignments(fileName):
 
 def loadSubmissions(fileName):
     submissions = []
-    filePath = get_full_path(fileName) 
     with open(fileName, "r") as file:
         for line in file:
             studentID, assignmentID, grade = line.strip().split('|')
@@ -121,14 +119,18 @@ def assignmentGraph(assignments, submissions):
 
 
 def main():
-    if not (check_file_exists("students.txt") and 
-            check_file_exists("assignments.txt") and
-            check_file_exists("submissions.txt")):
+    studentsPath = get_students_path()
+    assignmentPath = get_assignments_path()
+    submissionsPath = get_submissions_path()
+    
+    if not (check_file_exists("studentsPath") and 
+            check_file_exists("assignmentPath") and
+            check_file_exists("submissionsPath")):
         return
     
-    students = loadStudents("students.txt")
-    assignments = loadAssignments("assignments.txt")
-    submissions = loadSubmissions("submissions.txt")
+    students = loadStudents("studentsPath")
+    assignments = loadAssignments("assignmentPath")
+    submissions = loadSubmissions("submissionsPath")
 
     print("1. Student grade")
     print("2. Assignment statistics")
