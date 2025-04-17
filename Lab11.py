@@ -1,20 +1,36 @@
-
+import os
 import matplotlib.pyplot as plt
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(SCRIPT_DIR, "data")
 
+def get_full_path(fileName):
+    return os.path.join(DATA_DIR, fileName)
+
+def check_file_exists(fileName):
+    filePath = get_full_path(fileName)
+    if not os.path.exists(filePath):
+        print(f"Error: {fileName} not found in /data. Make sure the file is uploaded there.")
+        return False
+    return True
 
 def loadStudents(fileName):
     students = {}
+    filePath = get_full_path(fileName)
+    if not os.path.exists(filePath):
+        print(f"Error: '{fileName}' not found in /data folder.")
+        return students
     with open(fileName, "r") as f:
         for line in f:
             line = line.strip()
-            student_id = line[:3]
+            studentID = line[:3]
             name = line[3:]
-            students[name] = student_id
+            students[name] = studentID
     return students
 
 def loadAssignments(fileName):
     assignments = {}
+    filePath = get_full_path(fileName)
     with open(fileName, "r") as f:
         lines = [line.strip() for line in f if line.strip()]
         for i in range(0, len(lines), 3):
@@ -27,6 +43,7 @@ def loadAssignments(fileName):
 
 def loadSubmissions(fileName):
     submissions = []
+    filePath = get_full_path(fileName) 
     with open(fileName, "r") as file:
         for line in file:
             studentID, assignmentID, grade = line.strip().split('|')
@@ -100,16 +117,18 @@ def assignmentGraph(assignments, submissions):
     plt.ylim(0, 12)
 
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-
     plt.show()
 
 
 def main():
-
+    if not (check_file_exist("students.txt") and 
+            check_file_exists("assignments.txt") and
+            check_file_exists("submissions.txt")):
+        return
+    
     students = loadStudents("students.txt")
     assignments = loadAssignments("assignments.txt")
     submissions = loadSubmissions("submissions.txt")
-
 
     print("1. Student grade")
     print("2. Assignment statistics")
