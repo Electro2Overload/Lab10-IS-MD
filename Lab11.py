@@ -10,11 +10,11 @@ def get_assignments_path():
     return os.path.join(SCRIPT_DIR, 'data', 'assignments.txt')
 
 def get_submissions_path():
-    return os.path.join(SCRIPT_DIR, 'data', 'submissions', 'submissions.txt') 
+    return os.path.join(SCRIPT_DIR, 'data', 'submissions', 'submissions.txt')
 
 def check_file_exists(filePath):
     if not os.path.exists(filePath):
-        print(f"Error: {filePath} not found in /data. Make sure the file is uploaded there.")
+        print(f"Error: {filePath} not found. Make sure the file is uploaded and in the correct directory.")
         return False
     return True
 
@@ -23,10 +23,11 @@ def loadStudents(filePath):
     with open(filePath, "r") as f:
         for line in f:
             line = line.strip()
-            studentID = line[:3]
+            student_id = line[:3]
             name = line[3:]
-            students[name] = studentID
+            students[name] = student_id
     return students
+
 
 def loadAssignments(filePath):
     assignments = {}
@@ -38,7 +39,6 @@ def loadAssignments(filePath):
             pointValue = int(lines[i + 2])
             assignments[name] = {"ID": assignmentID, "points": pointValue}
     return assignments
-
 
 def loadSubmissions(filePath):
     submissions = []
