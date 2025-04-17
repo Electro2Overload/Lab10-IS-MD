@@ -30,7 +30,7 @@ def loadStudents(filePath):
 
 def loadAssignments(filePath):
     assignments = {}
-    with open(fileName, "r") as f:
+    with open(filePath, "r") as f:
         lines = [line.strip() for line in f if line.strip()]
         for i in range(0, len(lines), 3):
             name = lines[i]
@@ -42,7 +42,7 @@ def loadAssignments(filePath):
 
 def loadSubmissions(filePath):
     submissions = []
-    with open(fileName, "r") as file:
+    with open(filePath, "r") as file:
         for line in file:
             studentID, assignmentID, grade = line.strip().split('|')
             submissions.append((int(studentID), int(assignmentID), int(grade)))
