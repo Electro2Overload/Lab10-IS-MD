@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def get_students_path():
-    return os.path.join(SCRIPT_DIR, 'data', 'student.txt')
+    return os.path.join(SCRIPT_DIR, 'data', 'students.txt')
 
 def get_assignments_path():
     return os.path.join(SCRIPT_DIR, 'data', 'assignments.txt')
