@@ -25,7 +25,7 @@ def loadAssignments(filePath):
 def loadSubmissions(folderPath):
     submissions = []
     for filename in os.listdir(folderPath):
-        filePath = os.path.join(folderPath, fifename)
+        filePath = os.path.join(folderPath, filename)
         if os.path.isfile(filePath) and filename.endswith(".txt"):
             with open(filePath,"r") as file:
                 for line in file:
