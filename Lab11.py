@@ -67,7 +67,7 @@ def assignmentStatistics(assignments, submissions):
         return
 
     print(f"Min: {round(min(scores))}%")
-    print(f"Avg: {round(sum(scores) / len(scores))}%")
+    print(f"Avg: {int(sum(scores) / len(scores))}%")
     print(f"Max: {round(max(scores))}%")
 
 def assignmentGraph(assignments, submissions):
