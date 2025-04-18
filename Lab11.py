@@ -59,7 +59,7 @@ def assignmentStatistics(assignments, submissions):
         print("Assignment not found")
         return
 
-    assignID = assignments[assignmentName]["ID"]
+    assignID = assignments[assignmentSName]["ID"]
     scores = [sub[2] for sub in submissions if str(sub[1]) == assignID]
 
     if not scores:
